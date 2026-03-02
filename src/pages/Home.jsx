@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
+import History from "../components/History"
 
 export default function Home(){
 
     const [search, setSearch] = useState()
     const storedHistory = localStorage.getItem("search")
+    const[focused, setFocused] = useState(false)
+
     const [history, setHistory] = useState(storedHistory ? JSON.parse(storedHistory) : [])
 
     console.log("Denne kommer fra storage: ", storedHistory)
@@ -47,11 +50,12 @@ export default function Home(){
     return(
     <main>
         <h1>Filmbiblioteket</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} id="search_for_movies">
             <label>
                 Søk etter filmer:
-                <input type="search" placeholder="James Bond" onChange={handleChange}></input>
+                <input type="search" placeholder="James Bond" onChange={handleChange} onFocus={() => setFocused(true)} /*onBlur={() => setFocused(false)}*/></input>
             </label>
+            {focused ? <History history={history} setSearch={setSearch}/> : null}
             <button onClick={getMovies}>Søk</button>
         </form>
     </main>
