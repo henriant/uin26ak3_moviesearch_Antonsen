@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
 import History from "../components/History"
+import MovieList from "../components/MovieList"
 
 export default function Home(){
 
+    const [movies, setMovies] = useState([])
     const [search, setSearch] = useState()
     const storedHistory = localStorage.getItem("search")
     const[focused, setFocused] = useState(false)
@@ -32,6 +34,23 @@ export default function Home(){
         }
     }
 
+    useEffect(() => {
+    const fetchDefaultMovies = async () => {
+      try {
+        const response = await fetch(
+          `http://www.omdbapi.com/?s=James+Bond&apikey=${apiKey}`
+        )
+        const data = await response.json();
+        if (data.Search) {
+          setMovies(data.Search.slice(0, 10))
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    fetchDefaultMovies()
+  }, [])
+
     const handleChange = (e) => {
         setSearch(e.target.value)
     }
@@ -58,6 +77,7 @@ export default function Home(){
             {focused ? <History history={history} setSearch={setSearch}/> : null}
             <button onClick={getMovies}>Søk</button>
         </form>
+        <MovieList movies={movies} />
     </main>
     )
 }
