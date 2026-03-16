@@ -1,3 +1,4 @@
+import '../style/MovieList.css'
 import MovieCard from './MovieCard';
 
 export default function MovieList({ movies }) {

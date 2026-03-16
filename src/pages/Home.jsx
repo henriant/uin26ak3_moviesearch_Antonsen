@@ -1,3 +1,5 @@
+import '../style/Home.css'
+
 import { useEffect, useState } from "react"
 import History from "../components/History"
 import MovieList from "../components/MovieList"

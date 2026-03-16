@@ -1,3 +1,5 @@
+import '../style/History.css'
+
 export default function History({history, setSearch}) {
 
     const handleChange = (e) => {

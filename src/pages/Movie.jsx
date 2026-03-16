@@ -1,3 +1,5 @@
+import '../style/Movie.css'
+
 import { useParams, useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 
